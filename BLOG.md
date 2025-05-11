@@ -150,6 +150,30 @@ Successfully saved data for Philadelphia to S3
    - Make sure your conda environment is activated
    - Try reinstalling requirements: `pip install -r requirements.txt --force-reinstall`
 
+## Cleaning Up Resources
+
+The application creates a new S3 bucket with a random name each time it runs. To avoid unnecessary AWS charges, it's important to clean up these resources after testing.
+
+### Using the Cleanup Script
+
+A cleanup script (`delete_bucket.py`) is included in the repository to help manage S3 buckets:
+
+```bash
+# List all available buckets
+python delete_bucket.py --list
+
+# Delete a specific bucket
+python delete_bucket.py weather-data-12345
+```
+
+This script will:
+- List all your S3 buckets (with the `--list` option)
+- Delete all objects in a specified bucket
+- Delete the empty bucket
+- Handle versioned buckets correctly
+
+Always run this script after testing to avoid accumulating unused S3 buckets in your AWS account.
+
 ## Next Steps
 
 Now that your Weather Dashboard is running, you might want to:

@@ -40,6 +40,7 @@ meteostore-s3/
   tests/
     __init__.py
   data/
+  delete_bucket.py
   .env
   .env.example
   .gitignore
@@ -117,6 +118,34 @@ python src/weather_dashboard.py
 - Python best practices for API integration
 - Error handling and logging
 - AWS credential management using `aws configure`
+
+## Cleaning Up Resources
+
+The application creates a new S3 bucket with a random name each time it runs. To help manage these resources and avoid unnecessary AWS charges, a cleanup script is provided:
+
+### Using delete_bucket.py
+
+This script allows you to list and delete S3 buckets created by the application.
+
+1. **List all available buckets:**
+   ```bash
+   python delete_bucket.py --list
+   ```
+   This will show all S3 buckets in your AWS account.
+
+2. **Delete a specific bucket:**
+   ```bash
+   python delete_bucket.py weather-data-12345
+   ```
+   Replace `weather-data-12345` with the actual name of the bucket you want to delete.
+
+The script will:
+- Verify the bucket exists
+- Delete all objects in the bucket (including versions and delete markers)
+- Delete the empty bucket
+- Provide detailed feedback during the process
+
+It's recommended to run this script after testing to clean up resources and avoid unnecessary AWS charges.
 
 ## Future Enhancements
 
